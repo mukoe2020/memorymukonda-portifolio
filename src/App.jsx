@@ -1,14 +1,7 @@
 import { useState, useEffect } from "react";
+import ProjectsPage from "./components/Projects";
 
-// ─── WHY: All design tokens live here as CSS custom properties.
-//     Replacing scattered hex strings with variables means changing the
-//     color palette is a single-line edit, not a global find-and-replace.
-//
-// ─── WHY: Two accents — cyan (primary/action) + indigo (secondary/depth).
-//     Cyan handles CTAs, labels, and key highlights.
-//     Indigo handles featured cards, hover glows, and secondary labels.
-//     Using both stops "cyan everywhere" syndrome and gives the design more
-//     dimensionality without adding visual noise.
+
 const GlobalStyles = () => (
   <style>{`
     @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
@@ -474,41 +467,6 @@ const GlobalStyles = () => (
     }
     .skill-pill:hover { background: var(--cyan-dim); color: var(--cyan); border-color: var(--cyan-border); }
 
-    /* ── Tech badges ────────────────────────────────────────────────────── */
-    .tech-badge {
-      background: rgba(255,255,255,0.04); border: 1px solid var(--border-subtle);
-      color: var(--text-faint); border-radius: 4px;
-      padding: 2px 9px; font-size: 0.69rem;
-      font-family: 'JetBrains Mono', monospace; letter-spacing: 0.02em;
-    }
-
-    /* ── Featured project badge ─────────────────────────────────────────────── */
-    .proj-badge-featured {
-      display: inline-flex; align-items: center; gap: 5px;
-      font-family: 'JetBrains Mono', monospace; font-size: 0.63rem;
-      color: var(--indigo); letter-spacing: 0.12em;
-      text-transform: uppercase; font-weight: 600;
-    }
-
-    /* ── Geolocation accent (subtle grid pattern for backend projects) ────── */
-    .card-geo-accent {
-      position: absolute; top: 0; right: 0; bottom: 0;
-      width: 100%; height: 100%;
-      background-image:
-        linear-gradient(90deg, rgba(0,212,255,0.02) 1px, transparent 1px),
-        linear-gradient(rgba(0,212,255,0.02) 1px, transparent 1px);
-      background-size: 48px 48px;
-      background-position: 100% 0;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      border-radius: var(--radius-lg);
-    }
-    
-    .card--featured:hover .card-geo-accent {
-      opacity: 1;
-    }
-
     /* ── Card inner wrapper ─────────────────────────────────────────────── */
     .card-content {
       position: relative; z-index: 1;
@@ -564,10 +522,6 @@ const GlobalStyles = () => (
       padding: 12px 0; border-bottom: 1px solid var(--border-subtle);
     }
     .qf-row:last-child { border-bottom: none; }
-
-    /* ── Project grids ──────────────────────────────────────────────────── */
-    .proj-grid    { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); gap: 14px; }
-    .proj-grid-sm { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap: 12px; }
 
     /* ── Footer ─────────────────────────────────────────────────────────── */
     .footer-line {
@@ -948,207 +902,6 @@ function About() {
   );
 }
 
-// ─── Projects ──────────────────────────────────────────────────────────────────
-function ProjectCard({ project }) {
-  // Featured projects with images use side-by-side layout
-  if (project.featured && project.image) {
-    return (
-      <article className={`card card--featured card-with-image`}>
-        <div className="card-content">
-          {/* Featured Badge */}
-          <div>
-            <span className="proj-badge-featured">★ Featured</span>
-          </div>
-
-          {/* Header: Title + Buttons */}
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "10px" }}>
-            <h3 className="f-syne" style={{ fontSize: "1.3rem", fontWeight: 800, color: "var(--text-primary)", margin: "0", letterSpacing: "-0.02em" }}>
-              {project.title}
-            </h3>
-            <div style={{ display: "flex", gap: "8px", alignItems: "center", flexShrink: 0 }}>
-              {project.website && (
-                <a href={project.website} className="btn-gh" target="_blank" rel="noopener noreferrer" aria-label={`Visit ${project.title}`} style={{ background: "rgba(99,102,241,0.08)", borderColor: "rgba(99,102,241,0.24)" }}>
-                  Visit Site
-                </a>
-              )}
-              <a href={project.github} className="btn-gh" target="_blank" rel="noopener noreferrer" aria-label={`${project.title} on GitHub`}>
-                <GithubIcon /> GitHub
-              </a>
-            </div>
-          </div>
-
-          {/* Description */}
-          <p style={{ fontSize: "0.87rem", color: "var(--text-secondary)", lineHeight: 1.72, margin: "0" }}>
-            {project.description}
-          </p>
-
-          {/* Contributions */}
-          {project.contributions && (
-            <div style={{ fontSize: "0.82rem", color: "var(--text-secondary)", lineHeight: 1.68, margin: "0" }}>
-              <span className="f-mono" style={{
-                fontSize: "0.65rem", color: "var(--indigo)", letterSpacing: "0.1em",
-                textTransform: "uppercase", display: "block", marginBottom: "10px", fontWeight: 600,
-              }}>
-                Key Contributions
-              </span>
-              <ul style={{
-                margin: "0", padding: "0 0 0 18px", listStyle: "disc", color: "var(--text-secondary)",
-              }}>
-                {project.contributions.map((contrib, idx) => (
-                  <li key={idx} style={{
-                    marginBottom: idx !== project.contributions.length - 1 ? "6px" : "0",
-                    fontSize: "0.82rem",
-                  }}>
-                    {contrib}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          {/* Tech stack */}
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginTop: "auto", paddingTop: "6px" }}>
-            {project.tech.map((t) => <span key={t} className="tech-badge">{t}</span>)}
-          </div>
-        </div>
-
-        {/* Large image on right */}
-        <div className="card-image-wrapper">
-          <img
-            src={project.image}
-            alt={project.title}
-          />
-        </div>
-      </article>
-    );
-  }
-
-  // Compact layout for non-featured projects or featured without image
-  return (
-    <article
-      className={`card ${project.featured ? "card--featured" : ""}`}
-      style={{ padding: "0", display: "flex", flexDirection: "column", gap: "0", overflow: "hidden", position: "relative" }}
-    >
-      {project.featured && <div className="card-geo-accent" />}
-
-      {/* Image at top if exists */}
-      {project.image && (
-        <div style={{
-          width: "100%",
-          height: "180px",
-          overflow: "hidden",
-          background: "var(--bg-surface)",
-          borderBottom: "1px solid rgba(0, 212, 255, 0.1)",
-        }}>
-          <img
-            src={project.image}
-            alt={project.title}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              objectPosition: "center",
-              transition: "transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
-            }}
-          />
-        </div>
-      )}
-
-      <div className="card-content" style={{ padding: "24px", display: "flex", flexDirection: "column", gap: "14px", flexGrow: 1 }}>
-        {/* Header: Title + Buttons */}
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "10px" }}>
-          <div style={{ flex: 1 }}>
-            {project.featured && (
-              <span className="proj-badge-featured">
-                ★ Featured
-              </span>
-            )}
-            <h3 className="f-syne" style={{ fontSize: "1rem", fontWeight: 700, color: "var(--text-primary)", marginTop: project.featured ? "6px" : "0" }}>
-              {project.title}
-            </h3>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: "8px", alignItems: "flex-end", flexShrink: 0 }}>
-            {project.website && (
-              <a href={project.website} className="btn-gh" target="_blank" rel="noopener noreferrer" aria-label={`Visit ${project.title}`} style={{ background: "rgba(99,102,241,0.08)", borderColor: "rgba(99,102,241,0.24)" }}>
-                Visit Site
-              </a>
-            )}
-            <a href={project.github} className="btn-gh" target="_blank" rel="noopener noreferrer" aria-label={`${project.title} on GitHub`}>
-              <GithubIcon /> GitHub
-            </a>
-          </div>
-        </div>
-
-        {/* Description */}
-        <p style={{ fontSize: "0.87rem", color: "var(--text-secondary)", lineHeight: 1.72, margin: "0" }}>
-          {project.description}
-        </p>
-
-        {/* Contributions */}
-        {project.contributions && (
-          <div style={{ fontSize: "0.82rem", color: "var(--text-secondary)", lineHeight: 1.68, margin: "0" }}>
-            <span className="f-mono" style={{
-              fontSize: "0.65rem", color: "var(--indigo)", letterSpacing: "0.1em",
-              textTransform: "uppercase", display: "block", marginBottom: "10px", fontWeight: 600,
-            }}>
-              Key Contributions
-            </span>
-            <ul style={{
-              margin: "0", padding: "0 0 0 18px", listStyle: "disc", color: "var(--text-secondary)",
-            }}>
-              {project.contributions.map((contrib, idx) => (
-                <li key={idx} style={{
-                  marginBottom: idx !== project.contributions.length - 1 ? "6px" : "0",
-                  fontSize: "0.82rem",
-                }}>
-                  {contrib}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        {/* Tech stack with improved spacing */}
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginTop: "auto", paddingTop: "6px" }}>
-          {project.tech.map((t) => <span key={t} className="tech-badge">{t}</span>)}
-        </div>
-      </div>
-    </article>
-  );
-}
-
-function Projects() {
-  const featured = PROJECTS.filter((p) => p.featured);
-  const other    = PROJECTS.filter((p) => !p.featured);
-
-  return (
-    <section id="projects" className="section">
-      <div className="section-inner">
-        <SectionHeader tag="02. projects" title="Things I've built" />
-
-        <div className="proj-grid" style={{ marginTop: "48px" }}>
-          {featured.map((p) => <ProjectCard key={p.title} project={p} />)}
-        </div>
-
-        {/* WHY: Faint label + slightly narrower cards signal "secondary" without
-            needing a visual divider or heading that adds clutter.               */}
-        <div style={{ marginTop: "48px" }}>
-          <span className="f-mono" style={{
-            fontSize: "0.66rem", letterSpacing: "0.13em",
-            color: "var(--text-faint)", textTransform: "uppercase",
-            display: "block", marginBottom: "14px",
-          }}>
-            Other projects
-          </span>
-          <div className="proj-grid-sm">
-            {other.map((p) => <ProjectCard key={p.title} project={p} />)}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 // ─── Skills ────────────────────────────────────────────────────────────────────
 function Skills() {
   return (
@@ -1329,7 +1082,7 @@ export default function App() {
       <main>
         <Hero />
         <About />
-        <Projects />
+        <ProjectsPage projects={PROJECTS} />
         <Skills />
         <Certifications />
         <Contact />
