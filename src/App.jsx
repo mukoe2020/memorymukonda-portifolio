@@ -110,6 +110,10 @@ const GlobalStyles = () => (
       width: 100%;
       height: 100%;
     }
+    .card:not(.card--featured):hover img {
+      transform: scale(1.05);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
     .card--featured {
       border-color: var(--indigo-border);
       background: linear-gradient(135deg, rgba(99,102,241,0.04) 0%, transparent 100%);
@@ -118,6 +122,225 @@ const GlobalStyles = () => (
       border-color: var(--indigo);
       box-shadow: 0 14px 42px rgba(99,102,241,0.16);
       transform: translateY(-4px);
+    }
+
+    /* ── Featured project grid layout (side-by-side with image) ───────────── */
+    .card--featured.card-with-image {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-column: 1 / -1;
+      gap: 32px;
+      padding: 40px;
+      overflow: visible;
+      align-items: center;
+      background: linear-gradient(135deg, var(--bg-card) 0%, rgba(6, 12, 20, 0.8) 100%);
+      border: 1px solid rgba(0, 212, 255, 0.1);
+      border-radius: var(--radius-lg);
+      position: relative;
+    }
+
+    .card--featured.card-with-image::before {
+      content: "";
+      position: absolute;
+      top: -1px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.5), transparent);
+      pointer-events: none;
+    }
+
+    .card--featured.card-with-image .card-content {
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      justify-content: flex-start;
+      background: transparent;
+    }
+
+    .card--featured.card-with-image .proj-badge-featured {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--cyan);
+      text-transform: uppercase;
+      display: inline-block;
+      width: fit-content;
+      margin-bottom: 6px;
+    }
+
+    .card--featured.card-with-image h3 {
+      font-size: 1.6rem !important;
+      font-weight: 800 !important;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      margin: 0 !important;
+    }
+
+    .card--featured.card-with-image > div:first-child > p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin: 8px 0 !important;
+    }
+
+    .card--featured.card-with-image .card-image-wrapper {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius-lg);
+      background: var(--bg-surface);
+      aspect-ratio: 16 / 9;
+      max-height: 380px;
+      border: 1px solid rgba(0, 212, 255, 0.15);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+
+    .card--featured.card-with-image .card-image-wrapper::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, rgba(129, 140, 248, 0.03) 100%);
+      pointer-events: none;
+      border-radius: var(--radius-lg);
+      z-index: 1;
+    }
+
+    .card--featured.card-with-image .card-image-wrapper::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 0%, rgba(0, 212, 255, 0.15) 0%, transparent 70%);
+      pointer-events: none;
+      border-radius: var(--radius-lg);
+      z-index: 2;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .card--featured.card-with-image:hover .card-image-wrapper::after {
+      opacity: 1;
+    }
+
+    .card--featured.card-with-image .card-image-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      display: block;
+    }
+
+    .card--featured.card-with-image:hover .card-image-wrapper img {
+      transform: scale(1.03);
+    }
+
+    .card--featured.card-with-image .f-mono {
+      font-size: 0.7rem !important;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      color: var(--indigo);
+      font-weight: 600;
+      display: block;
+      margin-bottom: 10px !important;
+    }
+
+    .card--featured.card-with-image ul {
+      margin: 0 !important;
+      padding: 0 0 0 18px !important;
+      list-style: disc;
+    }
+
+    .card--featured.card-with-image li {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 6px;
+    }
+
+    .card--featured.card-with-image li:last-child {
+      margin-bottom: 0;
+    }
+
+    .card--featured.card-with-image .tech-badge {
+      font-size: 0.7rem;
+      padding: 4px 10px;
+      border-radius: 4px;
+      background: rgba(0, 212, 255, 0.08);
+      color: var(--cyan);
+      border: 1px solid rgba(0, 212, 255, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .card--featured.card-with-image:hover .tech-badge {
+      background: rgba(0, 212, 255, 0.12);
+      border-color: rgba(0, 212, 255, 0.3);
+    }
+
+    .card--featured.card-with-image .btn-gh {
+      font-size: 0.75rem !important;
+      padding: 6px 12px !important;
+      border-radius: 4px !important;
+      border: 1px solid rgba(0, 212, 255, 0.2) !important;
+      background: rgba(0, 212, 255, 0.08) !important;
+      color: var(--cyan) !important;
+      transition: all 0.3s ease !important;
+    }
+
+    .card--featured.card-with-image .btn-gh:hover {
+      background: rgba(0, 212, 255, 0.15) !important;
+      border-color: rgba(0, 212, 255, 0.4) !important;
+      transform: translateY(-2px);
+    }
+
+    /* ── Featured project responsive ──────────────────────────────────────── */
+    @media (max-width: 1000px) {
+      .card--featured.card-with-image {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 32px;
+      }
+
+      .card--featured.card-with-image .card-image-wrapper {
+        order: -1;
+        max-height: 280px;
+        aspect-ratio: 16 / 9;
+      }
+
+      .card--featured.card-with-image h3 {
+        font-size: 1.3rem !important;
+      }
+
+      .card--featured.card-with-image > div:first-child > p {
+        font-size: 0.85rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .card--featured.card-with-image {
+        grid-template-columns: 1fr;
+        gap: 18px;
+        padding: 20px;
+      }
+
+      .card--featured.card-with-image .card-image-wrapper {
+        max-height: 220px;
+        aspect-ratio: 16 / 9;
+      }
+
+      .card--featured.card-with-image h3 {
+        font-size: 1.1rem !important;
+      }
+
+      .card--featured.card-with-image > div:first-child > p {
+        font-size: 0.8rem;
+      }
+
+      .card--featured.card-with-image .proj-badge-featured {
+        font-size: 0.6rem;
+      }
     }
 
     /* ── Navbar ─────────────────────────────────────────────────────────── */
@@ -259,6 +482,38 @@ const GlobalStyles = () => (
       font-family: 'JetBrains Mono', monospace; letter-spacing: 0.02em;
     }
 
+    /* ── Featured project badge ─────────────────────────────────────────────── */
+    .proj-badge-featured {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.63rem;
+      color: var(--indigo); letter-spacing: 0.12em;
+      text-transform: uppercase; font-weight: 600;
+    }
+
+    /* ── Geolocation accent (subtle grid pattern for backend projects) ────── */
+    .card-geo-accent {
+      position: absolute; top: 0; right: 0; bottom: 0;
+      width: 100%; height: 100%;
+      background-image:
+        linear-gradient(90deg, rgba(0,212,255,0.02) 1px, transparent 1px),
+        linear-gradient(rgba(0,212,255,0.02) 1px, transparent 1px);
+      background-size: 48px 48px;
+      background-position: 100% 0;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      border-radius: var(--radius-lg);
+    }
+    
+    .card--featured:hover .card-geo-accent {
+      opacity: 1;
+    }
+
+    /* ── Card inner wrapper ─────────────────────────────────────────────── */
+    .card-content {
+      position: relative; z-index: 1;
+    }
+
     /* ── Form ───────────────────────────────────────────────────────────── */
     .form-label {
       display: block; font-family: 'JetBrains Mono', monospace;
@@ -365,12 +620,20 @@ const NAV_LINKS = ["About", "Projects", "Skills", "Certifications", "Contact"];
 
 const PROJECTS = [
   {
-    title: "SecureAuth API",
+    title: "FaithfulMatch",
     description:
-      "JWT auth service with refresh token rotation and Redis rate limiting. Built as a drop-in module for Python microservices.",
-    tech: ["Python", "FastAPI", "PostgreSQL", "Redis", "Docker"],
+      "Backend-driven matching platform featuring intelligent user matching with geo-location based recommendations. Implemented advanced filtering logic and real-time matching algorithms in a three-person team.",
+    contributions: [
+      "Built matching & filtering controllers with complex query logic",
+      "Implemented geo-near location matching using MongoDB geospatial indexing",
+      "Developed customizable user preference filters with cascading rules",
+      "Created RESTful backend endpoints handling concurrent user requests",
+      "Integrated MongoDB aggregation pipeline for efficient data processing",
+    ],
+    tech: ["NestJS", "TypeScript", "MongoDB", "Mongoose", "REST APIs", "Geolocation"],
     github: "#",
     featured: true,
+    image: "/images/faithfullmatch.png",
   },
   {
     title: "Celestial Palate",
@@ -389,44 +652,44 @@ const PROJECTS = [
     image: "/images/celesial.png",
   },
   {
-    title: "E-Commerce Backend",
+    title: "TSL Commercial Parts",
     description:
-      "Full e-commerce REST API: products, carts, Stripe integration, async task processing. Handles concurrent load reliably.",
-    tech: ["Django", "PostgreSQL", "Celery", "Stripe API", "AWS S3"],
-    github: "#",
+      "Modern business website for a truck and trailer parts supplier, designed to connect customers directly through integrated WhatsApp communication. Built with responsive React layouts and optimized for mobile experience.",
+    tech: ["React", "JavaScript", "HTML", "CSS"],
+    github: "https://github.com/corlatetechnologies-stack/TLS-COMMERCIAL-PARTS/tree/main",
+    website: "https://www.tslcparts.co.za/",
     featured: false,
+    image: "/images/tsl.png",
   },
   {
-    title: "DevLink — URL Shortener",
+    title: "React Weather App",
     description:
-      "High-throughput URL shortener with custom aliases and analytics. Redis caching for fast redirects at scale.",
-    tech: ["Node.js", "Express", "Redis", "MongoDB"],
-    github: "#",
+      "A responsive React weather application that delivers real-time weather updates using the OpenWeather API, featuring temperature, humidity, wind speed, and weather conditions through a clean, user-friendly interface.",
+    tech: ["React", "JavaScript", "OpenWeather API", "HTML", "CSS"],
+    github: "https://github.com/mukoe2020/REACT-WEATHER-APP",
+    website: "https://react-weather-app-six-khaki.vercel.app/",
     featured: false,
+    image: "/images/reactapp.png",
   },
   {
-    title: "Weather Analytics Pipeline",
+    title: "Phishing Fortress",
     description:
-      "Real-time weather data ETL with automated trend analysis and reporting. Built with Python and OpenWeather API.",
-    tech: ["Python", "Pandas", "Matplotlib", "OpenWeather API"],
-    github: "#",
+      "An interactive phishing awareness platform that trains users to identify malicious emails through simulated exercises and score-based assessments, featuring authentication, answer validation, and progress tracking systems.",
+    tech: ["JavaScript", "Python", "FastAPI", "PostgreSQL", "React", "JWT", "Tailwind"],
+    github: "https://github.com/mukoe2020/PhishingFostr",
+    website: "https://phishingfotress.netlify.app/",
     featured: false,
+    image: "/images/phishing.png",
   },
   {
-    title: "CLI Task Manager",
+    title: "Ubuntu Supply Solutions",
     description:
-      "Terminal task manager with persistence and priority queuing. Personal project that taught me CLI design and data structures.",
-    tech: ["Python", "SQLite", "Click", "Rich"],
-    github: "#",
+      "Developed a responsive healthcare supply platform for Ubuntu Supply Solutions, featuring dynamic product displays, WhatsApp-based quote requests, mobile-first responsive design, interactive hero sliders, and optimized user engagement workflows for medical equipment inquiries.",
+    tech: ["HTML", "CSS", "JavaScript", "Responsive Design", "WhatsApp API"],
+    github: "https://github.com/mukoe2020/ubuntu-supply-solutions",
+    website: "https://ubuntu-supply-solutions.vercel.app/",
     featured: false,
-  },
-  {
-    title: "Student Records API",
-    description:
-      "CRUD API with full test coverage and automated CI. Simple by design—focused on code discipline and maintainability.",
-    tech: ["Flask", "SQLAlchemy", "pytest", "GitHub Actions"],
-    github: "#",
-    featured: false,
+    image: "/images/ubuntu.png",
   },
 ];
 
@@ -687,74 +950,157 @@ function About() {
 
 // ─── Projects ──────────────────────────────────────────────────────────────────
 function ProjectCard({ project }) {
+  // Featured projects with images use side-by-side layout
+  if (project.featured && project.image) {
+    return (
+      <article className={`card card--featured card-with-image`}>
+        <div className="card-content">
+          {/* Featured Badge */}
+          <div>
+            <span className="proj-badge-featured">★ Featured</span>
+          </div>
+
+          {/* Header: Title + Buttons */}
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "10px" }}>
+            <h3 className="f-syne" style={{ fontSize: "1.3rem", fontWeight: 800, color: "var(--text-primary)", margin: "0", letterSpacing: "-0.02em" }}>
+              {project.title}
+            </h3>
+            <div style={{ display: "flex", gap: "8px", alignItems: "center", flexShrink: 0 }}>
+              {project.website && (
+                <a href={project.website} className="btn-gh" target="_blank" rel="noopener noreferrer" aria-label={`Visit ${project.title}`} style={{ background: "rgba(99,102,241,0.08)", borderColor: "rgba(99,102,241,0.24)" }}>
+                  Visit Site
+                </a>
+              )}
+              <a href={project.github} className="btn-gh" target="_blank" rel="noopener noreferrer" aria-label={`${project.title} on GitHub`}>
+                <GithubIcon /> GitHub
+              </a>
+            </div>
+          </div>
+
+          {/* Description */}
+          <p style={{ fontSize: "0.87rem", color: "var(--text-secondary)", lineHeight: 1.72, margin: "0" }}>
+            {project.description}
+          </p>
+
+          {/* Contributions */}
+          {project.contributions && (
+            <div style={{ fontSize: "0.82rem", color: "var(--text-secondary)", lineHeight: 1.68, margin: "0" }}>
+              <span className="f-mono" style={{
+                fontSize: "0.65rem", color: "var(--indigo)", letterSpacing: "0.1em",
+                textTransform: "uppercase", display: "block", marginBottom: "10px", fontWeight: 600,
+              }}>
+                Key Contributions
+              </span>
+              <ul style={{
+                margin: "0", padding: "0 0 0 18px", listStyle: "disc", color: "var(--text-secondary)",
+              }}>
+                {project.contributions.map((contrib, idx) => (
+                  <li key={idx} style={{
+                    marginBottom: idx !== project.contributions.length - 1 ? "6px" : "0",
+                    fontSize: "0.82rem",
+                  }}>
+                    {contrib}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Tech stack */}
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginTop: "auto", paddingTop: "6px" }}>
+            {project.tech.map((t) => <span key={t} className="tech-badge">{t}</span>)}
+          </div>
+        </div>
+
+        {/* Large image on right */}
+        <div className="card-image-wrapper">
+          <img
+            src={project.image}
+            alt={project.title}
+          />
+        </div>
+      </article>
+    );
+  }
+
+  // Compact layout for non-featured projects or featured without image
   return (
     <article
       className={`card ${project.featured ? "card--featured" : ""}`}
-      style={{ padding: "0", display: "flex", flexDirection: "column", gap: "0", overflow: "hidden" }}
+      style={{ padding: "0", display: "flex", flexDirection: "column", gap: "0", overflow: "hidden", position: "relative" }}
     >
-      {/* WHY: Image appears at top for visual impact, especially on featured projects */}
+      {project.featured && <div className="card-geo-accent" />}
+
+      {/* Image at top if exists */}
       {project.image && (
         <div style={{
-          width: "100%", height: "200px", overflow: "hidden",
+          width: "100%",
+          height: "180px",
+          overflow: "hidden",
           background: "var(--bg-surface)",
+          borderBottom: "1px solid rgba(0, 212, 255, 0.1)",
         }}>
           <img
             src={project.image}
             alt={project.title}
             style={{
-              width: "100%", height: "100%", objectFit: "cover",
-              transition: "transform 0.3s ease",
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "center",
+              transition: "transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
             }}
           />
         </div>
       )}
 
-      <div style={{ padding: "24px", display: "flex", flexDirection: "column", gap: "14px", flexGrow: 1 }}>
+      <div className="card-content" style={{ padding: "24px", display: "flex", flexDirection: "column", gap: "14px", flexGrow: 1 }}>
+        {/* Header: Title + Buttons */}
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "10px" }}>
-          <div>
+          <div style={{ flex: 1 }}>
             {project.featured && (
-              <span className="f-mono" style={{
-                fontSize: "0.63rem", color: "var(--indigo)",
-                letterSpacing: "0.12em", textTransform: "uppercase",
-                display: "block", marginBottom: "8px", fontWeight: 600,
-              }}>
+              <span className="proj-badge-featured">
                 ★ Featured
               </span>
             )}
-            <h3 className="f-syne" style={{ fontSize: "1rem", fontWeight: 700, color: "var(--text-primary)" }}>
+            <h3 className="f-syne" style={{ fontSize: "1rem", fontWeight: 700, color: "var(--text-primary)", marginTop: project.featured ? "6px" : "0" }}>
               {project.title}
             </h3>
           </div>
-          <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "8px", alignItems: "flex-end", flexShrink: 0 }}>
             {project.website && (
               <a href={project.website} className="btn-gh" target="_blank" rel="noopener noreferrer" aria-label={`Visit ${project.title}`} style={{ background: "rgba(99,102,241,0.08)", borderColor: "rgba(99,102,241,0.24)" }}>
                 Visit Site
               </a>
             )}
             <a href={project.github} className="btn-gh" target="_blank" rel="noopener noreferrer" aria-label={`${project.title} on GitHub`}>
-              <GithubIcon /> GitHub Repo
+              <GithubIcon /> GitHub
             </a>
           </div>
         </div>
 
-        <p style={{ fontSize: "0.87rem", color: "var(--text-muted)", lineHeight: 1.72 }}>
+        {/* Description */}
+        <p style={{ fontSize: "0.87rem", color: "var(--text-secondary)", lineHeight: 1.72, margin: "0" }}>
           {project.description}
         </p>
 
-        {/* WHY: Contributions appear as a bulleted list to highlight key work */}
+        {/* Contributions */}
         {project.contributions && (
-          <div style={{ fontSize: "0.82rem", color: "var(--text-muted)", lineHeight: 1.68 }}>
+          <div style={{ fontSize: "0.82rem", color: "var(--text-secondary)", lineHeight: 1.68, margin: "0" }}>
             <span className="f-mono" style={{
               fontSize: "0.65rem", color: "var(--indigo)", letterSpacing: "0.1em",
-              textTransform: "uppercase", display: "block", marginBottom: "8px", fontWeight: 600,
+              textTransform: "uppercase", display: "block", marginBottom: "10px", fontWeight: 600,
             }}>
               Key Contributions
             </span>
             <ul style={{
-              margin: "0", padding: "0 0 0 18px", listStyle: "disc",
+              margin: "0", padding: "0 0 0 18px", listStyle: "disc", color: "var(--text-secondary)",
             }}>
               {project.contributions.map((contrib, idx) => (
-                <li key={idx} style={{ marginBottom: idx !== project.contributions.length - 1 ? "4px" : "0" }}>
+                <li key={idx} style={{
+                  marginBottom: idx !== project.contributions.length - 1 ? "6px" : "0",
+                  fontSize: "0.82rem",
+                }}>
                   {contrib}
                 </li>
               ))}
@@ -762,7 +1108,8 @@ function ProjectCard({ project }) {
           </div>
         )}
 
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "5px", marginTop: "auto" }}>
+        {/* Tech stack with improved spacing */}
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginTop: "auto", paddingTop: "6px" }}>
           {project.tech.map((t) => <span key={t} className="tech-badge">{t}</span>)}
         </div>
       </div>
