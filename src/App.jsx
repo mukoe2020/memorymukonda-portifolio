@@ -60,9 +60,17 @@ const GlobalStyles = () => (
     .f-mono { font-family: 'JetBrains Mono', monospace; }
 
     /* ── Scrollbar ──────────────────────────────────────────────────────── */
-    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar { width: 10px; }
     ::-webkit-scrollbar-track { background: var(--bg-base); }
-    ::-webkit-scrollbar-thumb { background: #1a2540; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, rgba(0, 212, 255, 0.5) 0%, rgba(99, 102, 241, 0.4) 100%);
+      border-radius: 6px;
+      border: 2px solid var(--bg-base);
+      transition: background 0.3s ease;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(180deg, rgba(0, 212, 255, 0.8) 0%, rgba(99, 102, 241, 0.7) 100%);
+    }
 
     /* ── Grid background (hero) ─────────────────────────────────────────── */
     .grid-bg {
@@ -412,11 +420,19 @@ const GlobalStyles = () => (
       text-decoration: none; border: none;
     }
     .btn-primary {
-      background: var(--cyan); color: var(--bg-base); font-weight: 600;
+      background: #00d4ff;
+      color: #080c14;
+      font-weight: 600;
       box-shadow: 0 3px 12px rgba(0, 212, 255, 0.18);
+      border-radius: 6px;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
     }
     .btn-primary:hover {
-      background: #2edeff; transform: translateY(-2px);
+      background: #22e0ff;
+      transform: translateY(-2px);
       box-shadow: 0 6px 16px rgba(0, 212, 255, 0.28);
     }
     .btn-ghost {
@@ -424,6 +440,34 @@ const GlobalStyles = () => (
       border: 1px solid var(--border-mid); font-weight: 400;
     }
     .btn-ghost:hover { border-color: var(--indigo-border); color: var(--indigo); transform: translateY(-1px); }
+    
+    /* ── Hero Button Ghost ────────────────────────────────────────────── */
+    .hero-btn-ghost {
+      background: transparent;
+      color: #94a3b8;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 6px;
+      padding: 10px 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .hero-btn-ghost:hover {
+      border-color: rgba(255,255,255,0.2);
+      color: #cbd5e1;
+    }
+
+    /* ── Hero Terminal ────────────────────────────────────────────────── */
+    .hero-cursor {
+      color: #00d4ff;
+      animation: blink 1s step-start infinite;
+    }
+    @keyframes blink {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
     .btn-gh {
       display: inline-flex; align-items: center; gap: 6px;
       padding: 8px 16px; border-radius: var(--radius-sm);
@@ -466,6 +510,18 @@ const GlobalStyles = () => (
       white-space: nowrap;
     }
     .skill-pill:hover { background: var(--cyan-dim); color: var(--cyan); border-color: var(--cyan-border); }
+
+    /* ── Skill Chips ────────────────────────────────────────────────────── */
+    .skill-chip-new {
+      transition: all 0.2s ease;
+    }
+    .skill-chip-new:hover {
+      transform: translateY(-2px);
+      /* Glow fill on hover */
+      background: var(--hover-bg) !important;
+      border-color: var(--hover-border) !important;
+      box-shadow: 0 0 16px var(--hover-glow) !important;
+    }
 
     /* ── Card inner wrapper ─────────────────────────────────────────────── */
     .card-content {
@@ -585,7 +641,7 @@ const PROJECTS = [
       "Integrated MongoDB aggregation pipeline for efficient data processing",
     ],
     tech: ["NestJS", "TypeScript", "MongoDB", "Mongoose", "REST APIs", "Geolocation"],
-    github: "#",
+    github: "https://github.com/Faithful-Match/Backend-FaithfulMatch",
     featured: true,
     image: "/images/faithfullmatch.png",
   },
@@ -609,6 +665,12 @@ const PROJECTS = [
     title: "TSL Commercial Parts",
     description:
       "Modern business website for a truck and trailer parts supplier, designed to connect customers directly through integrated WhatsApp communication. Built with responsive React layouts and optimized for mobile experience.",
+    contributions: [
+      "Interactive truck and trailer parts gallery",
+      "WhatsApp-integrated customer inquiry system",
+      "Responsive React-based multi-page interface",
+      "Mobile-optimized customer engagement workflows",
+    ],
     tech: ["React", "JavaScript", "HTML", "CSS"],
     github: "https://github.com/corlatetechnologies-stack/TLS-COMMERCIAL-PARTS/tree/main",
     website: "https://www.tslcparts.co.za/",
@@ -619,6 +681,12 @@ const PROJECTS = [
     title: "React Weather App",
     description:
       "A responsive React weather application that delivers real-time weather updates using the OpenWeather API, featuring temperature, humidity, wind speed, and weather conditions through a clean, user-friendly interface.",
+    contributions: [
+      "Real-time weather data powered by OpenWeather API",
+      "Dynamic city-based weather search functionality",
+      "Responsive React interface with live weather metrics",
+      "Temperature, humidity, and wind condition tracking",
+    ],
     tech: ["React", "JavaScript", "OpenWeather API", "HTML", "CSS"],
     github: "https://github.com/mukoe2020/REACT-WEATHER-APP",
     website: "https://react-weather-app-six-khaki.vercel.app/",
@@ -629,6 +697,12 @@ const PROJECTS = [
     title: "Phishing Fortress",
     description:
       "An interactive phishing awareness platform that trains users to identify malicious emails through simulated exercises and score-based assessments, featuring authentication, answer validation, and progress tracking systems.",
+    contributions: [
+      "Interactive phishing detection simulations",
+      "User authentication and secure session management",
+      "Real-time answer validation and feedback",
+      "Responsive and user-friendly interface",
+    ],
     tech: ["JavaScript", "Python", "FastAPI", "PostgreSQL", "React", "JWT", "Tailwind"],
     github: "https://github.com/mukoe2020/PhishingFostr",
     website: "https://phishingfotress.netlify.app/",
@@ -638,8 +712,14 @@ const PROJECTS = [
   {
     title: "Ubuntu Supply Solutions",
     description:
-      "Developed a responsive healthcare supply platform for Ubuntu Supply Solutions, featuring dynamic product displays, WhatsApp-based quote requests, mobile-first responsive design, interactive hero sliders, and optimized user engagement workflows for medical equipment inquiries.",
-    tech: ["HTML", "CSS", "JavaScript", "Responsive Design", "WhatsApp API"],
+      "Developed a responsive healthcare supply platform featuring dynamic product showcases, WhatsApp-based quote requests, interactive hero sliders, and optimized mobile-first customer inquiry workflows.",
+    contributions: [
+      "WhatsApp inquiry integration for seamless customer communication",
+      "Responsive UI development across all devices and screen sizes",
+      "Interactive product quote flows with dynamic form handling",
+      "Mobile optimization for efficient customer inquiries",
+    ],
+    tech: ["HTML", "CSS", "JavaScript", "WhatsApp API"],
     github: "https://github.com/mukoe2020/ubuntu-supply-solutions",
     website: "https://ubuntu-supply-solutions.vercel.app/",
     featured: false,
@@ -648,11 +728,11 @@ const PROJECTS = [
 ];
 
 const SKILLS = {
-  Languages:         ["Python", "JavaScript", "SQL", "Bash", "C"],
-  "Backend & APIs":  ["FastAPI", "Django", "Flask", "Node.js", "Express", "REST", "GraphQL"],
-  Databases:         ["PostgreSQL", "MySQL", "SQLite", "MongoDB", "Redis"],
-  "DevOps & Tools":  ["Docker", "Git", "GitHub Actions", "Linux", "Nginx", "AWS (basics)"],
-  "Data & Analysis": ["Pandas", "NumPy", "Matplotlib", "Jupyter"],
+  "Core Languages":  ["Python", "JavaScript", "SQL", "C", "HTML & CSS"],
+  "Frameworks & Libraries": ["React", "FastAPI", "Flask", "Node.js"],
+  Databases:         ["PostgreSQL", "MySQL", "MongoDB"],
+  "DevOps & Tools":  ["Bash", "Docker", "Git", "GitHub Actions", "Linux", "Nginx"],
+  "Data & Analysis": ["Pandas", "NumPy", "Jupyter"],
 };
 
 const CERTIFICATIONS = [
@@ -770,72 +850,331 @@ function Hero() {
   return (
     <section
       id="hero"
-      className="grid-bg"
-      style={{ minHeight: "100vh", display: "flex", alignItems: "center", padding: "0 24px", position: "relative", overflow: "hidden" }}
+      style={{
+        minHeight: "100vh",
+        display: "grid",
+        gridTemplateColumns: "1fr 1fr",
+        alignItems: "center",
+        padding: "5rem 3.5rem",
+        position: "relative",
+        overflow: "hidden",
+        background: "#080c14",
+        gap: "3rem",
+      }}
     >
-      {/* WHY: Refined two-colour ambient glow (cyan left, indigo right) creates
-          depth and sophistication. Blend of both accents introduces design hierarchy. */}
+      {/* Dot grid overlay */}
       <div aria-hidden="true" style={{
-        position: "absolute", top: "25%", left: "12%",
-        width: "500px", height: "500px",
+        position: "absolute",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundImage: `
+          linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)
+        `,
+        backgroundSize: "52px 52px",
+        pointerEvents: "none",
+      }} />
+
+      {/* Radial glow orbs */}
+      <div aria-hidden="true" style={{
+        position: "absolute",
+        top: "-120px",
+        left: "-120px",
+        width: "500px",
+        height: "500px",
+        background: "radial-gradient(circle, rgba(0,212,255,0.07) 0%, transparent 68%)",
+        borderRadius: "50%",
+        pointerEvents: "none",
+      }} />
+      <div aria-hidden="true" style={{
+        position: "absolute",
+        bottom: "-100px",
+        left: "30%",
+        width: "400px",
+        height: "400px",
+        background: "radial-gradient(circle, rgba(99,102,241,0.09) 0%, transparent 68%)",
+        borderRadius: "50%",
+        pointerEvents: "none",
+      }} />
+      <div aria-hidden="true" style={{
+        position: "absolute",
+        top: "50%",
+        transform: "translateY(-50%)",
+        right: "-150px",
+        width: "500px",
+        height: "500px",
         background: "radial-gradient(circle, rgba(0,212,255,0.06) 0%, transparent 68%)",
-        pointerEvents: "none",
-      }} />
-      <div aria-hidden="true" style={{
-        position: "absolute", top: "42%", right: "8%",
-        width: "380px", height: "380px",
-        background: "radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 68%)",
+        borderRadius: "50%",
         pointerEvents: "none",
       }} />
 
-      <div style={{ maxWidth: "var(--section-max)", margin: "0 auto", width: "100%", paddingTop: "72px" }}>
-
-        <p className="f-mono anim d1" style={{ fontSize: "0.73rem", color: "var(--text-muted)", letterSpacing: "0.15em", marginBottom: "20px" }}>
-          backend developer · python · databases
-        </p>
-
-        <h1 className="f-syne anim d2" style={{
-          fontSize: "clamp(2.5rem, 5.8vw, 5rem)",
-          fontWeight: 800, lineHeight: 1.08,
-          letterSpacing: "-0.03em", color: "var(--text-primary)",
-          maxWidth: "680px", marginBottom: "24px",
+      {/* Left Column */}
+      <div style={{ position: "relative", zIndex: 2 }}>
+        {/* Status Pill */}
+        <div className="hero-status-pill anim d1" style={{
+          display: "inline-flex",
+          alignItems: "center",
+          gap: "8px",
+          padding: "7px 14px",
+          background: "rgba(0,212,255,0.06)",
+          border: "1px solid rgba(0,212,255,0.2)",
+          borderRadius: "999px",
+          marginBottom: "2rem",
         }}>
-          I build backends<br />
-          that <span style={{ color: "var(--cyan)" }}>stay reliable</span>
+          <div className="hero-status-dot" style={{
+            width: "6px",
+            height: "6px",
+            background: "#00d4ff",
+            borderRadius: "50%",
+            animation: "pulse 2.2s ease-in-out infinite",
+          }} />
+          <span className="f-mono" style={{
+            fontSize: "0.71rem",
+            color: "#67e8f9",
+            letterSpacing: "0.05em",
+            whiteSpace: "nowrap",
+          }}>
+            Open to internship &amp; junior roles
+          </span>
+        </div>
+
+        {/* Headline */}
+        <h1 className="f-syne anim d2" style={{
+          fontSize: "clamp(42px, 6vw, 58px)",
+          fontWeight: 800,
+          lineHeight: 1.0,
+          letterSpacing: "-0.04em",
+          color: "#f1f5f9",
+          marginBottom: "1.5rem",
+        }}>
+          I build backends that <span style={{ color: "#00d4ff" }}>stay</span> <span style={{ color: "#818cf8" }}>reliable</span>
         </h1>
 
+        {/* Description */}
         <p className="anim d3" style={{
-          fontSize: "1rem", lineHeight: 1.82,
-          color: "var(--text-muted)", maxWidth: "500px", marginBottom: "36px",
+          fontSize: "15px",
+          lineHeight: 1.8,
+          color: "#94a3b8",
+          maxWidth: "420px",
+          marginBottom: "2.25rem",
         }}>
-          Completed ALX's backend engineering program. I write APIs that scale predictably, design databases that don't surprise you, and keep systems maintainable. Right now I'm looking for a role where I can build real systems with a strong team.
+          Completed ALX's backend engineering program. I write APIs that scale predictably, design databases that don't surprise you, and keep systems maintainable.
         </p>
 
-        <div className="anim d4" style={{ display: "flex", gap: "12px", flexWrap: "wrap", marginBottom: "48px" }}>
+        {/* Buttons */}
+        <div className="anim d4" style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
           <button className="btn btn-primary" onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}>
             See my work
           </button>
-          <button className="btn btn-ghost" onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}>
+          <button className="hero-btn-ghost" onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}>
             Get in touch
           </button>
         </div>
+      </div>
 
-        <div className="status-badge anim d4">
-          <div className="status-dot" />
-          <span className="status-text">Open to internship &amp; junior roles</span>
+      {/* Right Column - Terminal */}
+      <div style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div className="hero-terminal anim d3" style={{
+          background: "#0a0e18",
+          border: "1px solid rgba(255,255,255,0.08)",
+          borderRadius: "12px",
+          boxShadow: "0 0 60px rgba(0,212,255,0.09), 0 0 100px rgba(99,102,241,0.07)",
+          width: "100%",
+          maxWidth: "460px",
+          overflow: "hidden",
+          position: "relative",
+          zIndex: 1,
+        }}>
+          {/* Terminal Top Bar */}
+          <div style={{
+            background: "#0f1724",
+            borderBottom: "1px solid rgba(255,255,255,0.06)",
+            padding: "12px 16px",
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+            justifyContent: "center",
+          }}>
+            <div style={{ width: "11px", height: "11px", background: "#ff5f57", borderRadius: "50%" }} />
+            <div style={{ width: "11px", height: "11px", background: "#ffbd2e", borderRadius: "50%" }} />
+            <div style={{ width: "11px", height: "11px", background: "#28ca41", borderRadius: "50%" }} />
+            <span className="f-mono" style={{
+              fontSize: "11px",
+              color: "#475569",
+              marginLeft: "12px",
+              flex: 1,
+              textAlign: "center",
+              position: "absolute",
+              left: "50%",
+              transform: "translateX(-50%)",
+            }}>
+              matching.service.ts
+            </span>
+          </div>
+
+          {/* Terminal Body */}
+          <div className="hero-terminal-body" style={{
+            fontFamily: "'JetBrains Mono', monospace",
+            fontSize: "12.5px",
+            lineHeight: 2,
+            padding: "22px 24px 26px",
+            color: "#f1f5f9",
+            overflow: "auto",
+            maxHeight: "350px",
+          }}>
+            <div><span style={{ color: "#3d4f6b" }}>// geo-location matching engine</span></div>
+            <div><span style={{ color: "#818cf8" }}>async</span> <span style={{ color: "#00d4ff" }}>findMatches</span>(<span style={{ color: "#c084fc" }}>userId</span>: <span style={{ color: "#c084fc" }}>string</span>) {'{'}</div>
+            <div>&nbsp;&nbsp;<span style={{ color: "#818cf8" }}>const</span> <span style={{ color: "#f1f5f9" }}>user</span> = <span style={{ color: "#818cf8" }}>await</span> <span style={{ color: "#818cf8" }}>this</span>.<span style={{ color: "#00d4ff" }}>findById</span>(<span style={{ color: "#f1f5f9" }}>userId</span>);</div>
+            <div>&nbsp;&nbsp;<span style={{ color: "#818cf8" }}>return</span> <span style={{ color: "#818cf8" }}>this</span>.Profile.<span style={{ color: "#00d4ff" }}>aggregate</span>([</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;{'{'}  <span style={{ color: "#34d399" }}>$geoNear</span>: {'{'}</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;near: user.location,</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;maxDistance: <span style={{ color: "#fb923c" }}>50000</span>,</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;spherical: <span style={{ color: "#818cf8" }}>true</span></div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;{'}'} {'}'},</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;{'{'}  <span style={{ color: "#34d399" }}>$match</span>: <span style={{ color: "#00d4ff" }}>buildFilters</span>(user.prefs) {'}'},</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;{'{'}  <span style={{ color: "#34d399" }}>$limit</span>: <span style={{ color: "#fb923c" }}>20</span> {'}'}</div>
+            <div>&nbsp;&nbsp;]);</div>
+            <div>{'}'}<span className="hero-cursor">|</span></div>
+          </div>
+
+          {/* Stats Bar */}
+          <div style={{
+            borderTop: "1px solid rgba(255,255,255,0.06)",
+            display: "flex",
+          }}>
+            {[
+              { number: "6", unit: "+", label: "Projects" },
+              { number: "2", unit: "+", label: "Years coding" },
+              { number: "ALX", unit: "", label: "Certified" },
+            ].map((stat, idx) => (
+              <div
+                key={idx}
+                style={{
+                  flex: 1,
+                  padding: "14px 20px",
+                  textAlign: "center",
+                  borderRight: idx < 2 ? "1px solid rgba(255,255,255,0.06)" : "none",
+                }}
+              >
+                <div style={{
+                  fontSize: "20px",
+                  fontWeight: 700,
+                  color: "#f1f5f9",
+                }}>
+                  {stat.number}<span style={{ color: "#00d4ff" }}>{stat.unit}</span>
+                </div>
+                <div className="f-mono" style={{
+                  fontSize: "10px",
+                  color: "#475569",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.08em",
+                  marginTop: "4px",
+                }}>
+                  {stat.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Floating Badges */}
+        <div className="hero-badge hero-badge-top-left" style={{
+          position: "absolute",
+          top: "16px",
+          left: "16px",
+          background: "#0f1724",
+          border: "1px solid rgba(255,255,255,0.08)",
+          borderRadius: "8px",
+          padding: "6px 10px",
+          display: "flex",
+          alignItems: "center",
+          gap: "6px",
+          zIndex: 2,
+        }}>
+          <div style={{
+            width: "5px",
+            height: "5px",
+            background: "#6366f1",
+            borderRadius: "50%",
+          }} />
+          <span className="f-mono" style={{
+            fontSize: "11px",
+            color: "#94a3b8",
+          }}>
+            NestJS · REST API
+          </span>
+        </div>
+
+        <div className="hero-badge hero-badge-bottom-right" style={{
+          position: "absolute",
+          bottom: "16px",
+          right: "16px",
+          background: "#0f1724",
+          border: "1px solid rgba(255,255,255,0.08)",
+          borderRadius: "8px",
+          padding: "6px 10px",
+          display: "flex",
+          alignItems: "center",
+          gap: "6px",
+          zIndex: 2,
+        }}>
+          <div style={{
+            width: "5px",
+            height: "5px",
+            background: "#00d4ff",
+            borderRadius: "50%",
+          }} />
+          <span className="f-mono" style={{
+            fontSize: "11px",
+            color: "#94a3b8",
+          }}>
+            MongoDB · Geospatial
+          </span>
         </div>
       </div>
 
       {/* Scroll indicator */}
       <div aria-hidden="true" style={{
-        position: "absolute", bottom: "36px", left: "50%", transform: "translateX(-50%)",
+        position: "absolute",
+        bottom: "36px",
+        left: "50%",
+        transform: "translateX(-50%)",
+        zIndex: 3,
       }}>
         <div style={{
-          width: "1px", height: "44px",
+          width: "1px",
+          height: "44px",
           background: "linear-gradient(to bottom, transparent, var(--cyan))",
           opacity: 0.3,
         }} />
       </div>
+
+      {/* Responsive adjustments */}
+      <style>{`
+        @media (max-width: 900px) {
+          #hero {
+            grid-template-columns: 1fr;
+            padding: 4rem 2.5rem;
+            gap: 2rem;
+          }
+          .hero-terminal {
+            margin-top: 40px;
+          }
+          .hero-badge {
+            display: none !important;
+          }
+        }
+        @media (max-width: 600px) {
+          #hero {
+            padding: 3rem 1.5rem;
+          }
+          .hero-terminal {
+            display: none;
+          }
+        }
+      `}</style>
     </section>
   );
 }
@@ -904,26 +1243,115 @@ function About() {
 
 // ─── Skills ────────────────────────────────────────────────────────────────────
 function Skills() {
+  const categoryStyles = {
+    "Core Languages": { 
+      accentColor: "#00d4ff", 
+      chipBg: "rgba(0, 212, 255, 0.07)",
+      chipBorder: "rgba(0, 212, 255, 0.25)",
+      chipColor: "#67e8f9",
+      hoverBg: "rgba(0, 212, 255, 0.15)",
+      hoverBorder: "rgba(0, 212, 255, 0.4)",
+      hoverGlow: "rgba(0, 212, 255, 0.3)",
+    },
+    "Frameworks & Libraries": { 
+      accentColor: "#6366f1", 
+      chipBg: "rgba(99, 102, 241, 0.1)",
+      chipBorder: "rgba(99, 102, 241, 0.3)",
+      chipColor: "#a5b4fc",
+      hoverBg: "rgba(99, 102, 241, 0.2)",
+      hoverBorder: "rgba(99, 102, 241, 0.5)",
+      hoverGlow: "rgba(99, 102, 241, 0.3)",
+    },
+    "Databases": { 
+      accentColor: "#00d4ff", 
+      chipBg: "rgba(0, 212, 255, 0.07)",
+      chipBorder: "rgba(0, 212, 255, 0.25)",
+      chipColor: "#67e8f9",
+      hoverBg: "rgba(0, 212, 255, 0.15)",
+      hoverBorder: "rgba(0, 212, 255, 0.4)",
+      hoverGlow: "rgba(0, 212, 255, 0.3)",
+    },
+    "DevOps & Tools": { 
+      accentColor: "#6366f1", 
+      chipBg: "rgba(99, 102, 241, 0.1)",
+      chipBorder: "rgba(99, 102, 241, 0.3)",
+      chipColor: "#a5b4fc",
+      hoverBg: "rgba(99, 102, 241, 0.2)",
+      hoverBorder: "rgba(99, 102, 241, 0.5)",
+      hoverGlow: "rgba(99, 102, 241, 0.3)",
+    },
+    "Data & Analysis": { 
+      accentColor: "#00d4ff", 
+      chipBg: "rgba(0, 212, 255, 0.07)",
+      chipBorder: "rgba(0, 212, 255, 0.25)",
+      chipColor: "#67e8f9",
+      hoverBg: "rgba(0, 212, 255, 0.15)",
+      hoverBorder: "rgba(0, 212, 255, 0.4)",
+      hoverGlow: "rgba(0, 212, 255, 0.3)",
+    },
+  };
+
   return (
     <section id="skills" className="section-alt">
       <div className="section-inner">
         <SectionHeader tag="03. skills" title="Technical stack" />
+        <p style={{
+          textAlign: "center", 
+          color: "var(--text-muted)",
+          fontSize: "0.92rem", 
+          lineHeight: 1.78,
+          marginTop: "12px", 
+          marginBottom: "48px",
+        }}>
+          Languages, frameworks, and tools I build with.
+        </p>
 
-        <div style={{ marginTop: "48px", display: "flex", flexDirection: "column", gap: "28px" }}>
-          {Object.entries(SKILLS).map(([category, items]) => (
-            <div key={category}>
-              <span className="f-mono" style={{
-                fontSize: "0.66rem", color: "var(--text-faint)",
-                letterSpacing: "0.13em", textTransform: "uppercase",
-                display: "block", marginBottom: "11px",
-              }}>
-                {category}
-              </span>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "7px" }}>
-                {items.map((skill) => <span key={skill} className="skill-pill">{skill}</span>)}
+        <div style={{ marginTop: "0px", display: "flex", flexDirection: "column", gap: "28px" }}>
+          {Object.entries(SKILLS).map(([category, items]) => {
+            const style = categoryStyles[category] || categoryStyles["Data & Analysis"];
+
+            return (
+              <div key={category}>
+                {/* Category Label */}
+                <h3 className="f-mono" style={{
+                  fontSize: "0.7rem",
+                  fontWeight: 700,
+                  color: style.accentColor,
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  margin: "0 0 12px 0",
+                }}>
+                  {category}
+                </h3>
+
+                {/* Skills Pills */}
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+                  {items.map((skill) => (
+                    <span
+                      key={skill}
+                      className="skill-chip-new"
+                      style={{
+                        padding: "6px 14px",
+                        background: style.chipBg,
+                        border: `1px solid ${style.chipBorder}`,
+                        borderRadius: "999px",
+                        fontSize: "0.75rem",
+                        color: style.chipColor,
+                        fontFamily: "'JetBrains Mono', monospace",
+                        whiteSpace: "nowrap",
+                        transition: "all 0.2s ease",
+                        "--hover-bg": style.hoverBg,
+                        "--hover-border": style.hoverBorder,
+                        "--hover-glow": style.hoverGlow,
+                      }}
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
@@ -1036,16 +1464,39 @@ function Contact() {
           </form>
         )}
 
-        <div style={{ display: "flex", justifyContent: "center", gap: "32px", marginTop: "52px" }}>
+        <div style={{ display: "flex", justifyContent: "center", gap: "20px", marginTop: "52px" }}>
           {[
-            { label: "GitHub",   href: "#" },
-            { label: "LinkedIn", href: "#" },
-            { label: "Email",    href: "mailto:your@email.com" },
-          ].map(({ label, href }) => (
-            <a key={label} href={href} className="nav-link f-mono" style={{ fontSize: "0.74rem" }}>
-              {label}
-            </a>
-          ))}
+            { label: "GitHub", url: "https://github.com/mukoe2020", svg: '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>' },
+            { label: "LinkedIn", url: "https://www.linkedin.com/in/memory-mukonda-39ba06248/", svg: '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/></svg>' },
+            { label: "Email", url: "mailto:memoemukoe@gmail.com", svg: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>' },
+          ].map(({ label, url, svg }) => {
+            const [hovered, setHovered] = useState(false);
+            return (
+              <a
+                key={label}
+                href={url}
+                target={label !== "Email" ? "_blank" : undefined}
+                rel="noopener noreferrer"
+                style={{
+                  display: "inline-flex", alignItems: "center", justifyContent: "center",
+                  width: "42px", height: "42px",
+                  border: "1.5px solid var(--cyan)",
+                  borderRadius: "8px",
+                  background: hovered ? "rgba(0, 212, 255, 0.08)" : "transparent",
+                  color: "var(--cyan)",
+                  cursor: "pointer",
+                  transition: "all 0.3s ease",
+                  transform: hovered ? "translateY(-3px)" : "translateY(0)",
+                  boxShadow: hovered ? "0 8px 16px rgba(0, 212, 255, 0.15)" : "none",
+                }}
+                onMouseEnter={() => setHovered(true)}
+                onMouseLeave={() => setHovered(false)}
+                title={label}
+              >
+                <div dangerouslySetInnerHTML={{ __html: svg }} />
+              </a>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -1055,19 +1506,26 @@ function Contact() {
 // ─── Footer ────────────────────────────────────────────────────────────────────
 function Footer() {
   return (
-    <footer style={{ padding: "30px 24px", borderTop: "1px solid var(--border-subtle)" }}>
-      <div className="footer-line" />
+    <footer style={{ padding: "40px 24px 30px", borderTop: "1px solid var(--border-subtle)" }}>
       <div style={{
         maxWidth: "var(--section-max)", margin: "0 auto",
-        display: "flex", justifyContent: "space-between", alignItems: "center",
-        flexWrap: "wrap", gap: "8px",
       }}>
-        <span className="f-mono" style={{ fontSize: "0.71rem", color: "var(--text-faint)" }}>
-          Designed &amp; built by me · 2025
-        </span>
-        <span className="f-mono" style={{ fontSize: "0.71rem", color: "var(--text-faint)" }}>
-          React · CSS custom properties
-        </span>
+        {/* Main Content */}
+        <div style={{
+          display: "flex", justifyContent: "space-between", alignItems: "center",
+          gap: "20px",
+          marginBottom: "24px",
+        }}>
+          {/* Left Side - Name */}
+          <p className="f-mono" style={{ fontSize: "0.71rem", color: "var(--text-faint)", letterSpacing: "0.05em", margin: 0 }}>
+            Memory Mukonda
+          </p>
+          {/* Right Side - Title */}
+          <p className="f-mono" style={{ fontSize: "0.71rem", color: "var(--text-faint)", letterSpacing: "0.05em", margin: 0 }}>
+            BACKEND DEVELOPER · 2026
+          </p>
+        </div>
+
       </div>
     </footer>
   );
