@@ -422,10 +422,11 @@ const GlobalStyles = () => (
     .btn-primary {
       background: #00d4ff;
       color: #080c14;
-      font-weight: 600;
+      font-weight: 700;
+      font-size: 14px;
       box-shadow: 0 3px 12px rgba(0, 212, 255, 0.18);
       border-radius: 6px;
-      padding: 10px 20px;
+      padding: 12px 26px;
       border: none;
       cursor: pointer;
       transition: all 0.2s ease;
@@ -447,9 +448,9 @@ const GlobalStyles = () => (
       color: #94a3b8;
       border: 1px solid rgba(255,255,255,0.12);
       border-radius: 6px;
-      padding: 10px 20px;
+      padding: 12px 26px;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.9rem;
+      font-size: 14px;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s ease;
@@ -1190,50 +1191,257 @@ function About() {
   ];
 
   return (
-    <section id="about" className="section-alt">
-      <div className="section-inner">
-        <SectionHeader tag="01. about" title="A bit about me" />
+    <section id="about" className="section-alt" style={{ position: "relative", overflow: "hidden" }}>
+      {/* Dot grid background */}
+      <div aria-hidden="true" style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundImage: `
+          linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px)
+        `,
+        backgroundSize: "52px 52px",
+        pointerEvents: "none",
+      }} />
 
-        <div className="about-grid">
+      {/* Indigo glow orb top-right */}
+      <div aria-hidden="true" style={{
+        position: "absolute",
+        top: "-100px",
+        right: "-80px",
+        width: "400px",
+        height: "400px",
+        background: "radial-gradient(circle, rgba(99,102,241,0.07) 0%, transparent 65%)",
+        borderRadius: "50%",
+        pointerEvents: "none",
+      }} />
+
+      {/* Cyan glow orb bottom-center */}
+      <div aria-hidden="true" style={{
+        position: "absolute",
+        bottom: "-80px",
+        left: "20%",
+        width: "350px",
+        height: "350px",
+        background: "radial-gradient(circle, rgba(0,212,255,0.05) 0%, transparent 65%)",
+        borderRadius: "50%",
+        pointerEvents: "none",
+      }} />
+
+      <div className="section-inner" style={{ position: "relative", zIndex: 2 }}>
+        {/* Section Header */}
+        <div style={{ marginBottom: "3rem" }}>
+          <span className="f-mono" style={{
+            display: "block",
+            fontSize: "11px",
+            letterSpacing: "0.14em",
+            textTransform: "uppercase",
+            color: "#475569",
+            marginBottom: "1rem",
+          }}>
+            01. about
+          </span>
+          <h2 className="f-syne" style={{
+            fontSize: "42px",
+            fontWeight: 800,
+            letterSpacing: "-0.03em",
+            color: "#f1f5f9",
+            marginBottom: "1rem",
+          }}>
+            A bit about <span style={{ color: "#00d4ff" }}>me</span>
+          </h2>
+          <div style={{
+            width: "36px",
+            height: "3px",
+            background: "linear-gradient(90deg, #00d4ff, #6366f1)",
+            borderRadius: "2px",
+          }} />
+        </div>
+
+        {/* Two-column grid */}
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          gap: "3rem",
+          alignItems: "start",
+        }}>
+          {/* Left column - bio + stats */}
           <div>
-            <p style={{ fontSize: "0.97rem", lineHeight: 1.85, color: "var(--text-secondary)", marginBottom: "18px" }}>
-              I spent a year at ALX working on the fundamentals. Went deep on Python, C, databases, systems design—the kind of foundation that matters. The program pushed hard, and that was the point.
+            {/* Bio paragraphs */}
+            <p style={{
+              fontSize: "15px",
+              lineHeight: 1.85,
+              color: "#94a3b8",
+              marginBottom: "1.25rem",
+            }}>
+              I spent a year at <strong style={{ color: "#f1f5f9", fontWeight: 500 }}>ALX</strong> working on the fundamentals. Went deep on Python, C, databases, systems design—the kind of foundation that matters. The program pushed hard, and that was the point.
             </p>
-            <p style={{ fontSize: "0.97rem", lineHeight: 1.85, color: "var(--text-secondary)", marginBottom: "18px" }}>
-              Before that I completed IBM's Data Analyst certification, which gave me respect for how data actually flows through systems. Still shapes how I approach API design and schema architecture.
+            <p style={{
+              fontSize: "15px",
+              lineHeight: 1.85,
+              color: "#94a3b8",
+              marginBottom: "1.25rem",
+            }}>
+              Before that I completed <strong style={{ color: "#f1f5f9", fontWeight: 500 }}>IBM's Data Analyst certification</strong>, which gave me respect for how data actually flows through systems. Still shapes how I approach API design and schema architecture.
             </p>
-            <p style={{ fontSize: "0.97rem", lineHeight: 1.85, color: "var(--text-secondary)", marginBottom: "32px" }}>
-              I started with frontend (SheCodes), which matters—understanding the other side makes you write better backends. Now I focus on reliable, scalable systems.
+            <p style={{
+              fontSize: "15px",
+              lineHeight: 1.85,
+              color: "#94a3b8",
+              marginBottom: "1.25rem",
+            }}>
+              I started with frontend (SheCodes), which matters—understanding the other side makes you write better backends. Now I focus on <strong style={{ color: "#f1f5f9", fontWeight: 500 }}>reliable, scalable systems</strong>.
             </p>
 
-            <div style={{ display: "flex", gap: "36px" }}>
-              {[{ n: "6+", l: "Projects" }, { n: "3", l: "Certs" }, { n: "1yr", l: "ALX program" }].map(({ n, l }) => (
-                <div key={l}>
-                  <div className="f-syne" style={{ fontSize: "1.9rem", fontWeight: 800, color: "var(--cyan)", lineHeight: 1 }}>{n}</div>
-                  <div className="f-mono" style={{ fontSize: "0.66rem", color: "var(--text-faint)", marginTop: "5px", letterSpacing: "0.1em", textTransform: "uppercase" }}>{l}</div>
+            {/* Stats grid */}
+            <div style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(3, 1fr)",
+              gap: "1px",
+              background: "rgba(255,255,255,0.06)",
+              border: "1px solid rgba(255,255,255,0.08)",
+              borderRadius: "10px",
+              overflow: "hidden",
+              marginTop: "2.5rem",
+            }}>
+              {[
+                { num: "6", suffix: "+", label: "Projects" },
+                { num: "3", suffix: "", label: "Certs" },
+                { num: "1", suffix: "yr", label: "ALX Program" },
+              ].map((stat, idx) => (
+                <div key={idx} style={{
+                  background: "#0a0e18",
+                  padding: "1.25rem 1rem",
+                  textAlign: "center",
+                }}>
+                  <div style={{
+                    fontSize: "28px",
+                    fontWeight: 800,
+                    letterSpacing: "-0.03em",
+                    color: "#f1f5f9",
+                  }}>
+                    {stat.num}<span style={{ color: "#00d4ff" }}>{stat.suffix}</span>
+                  </div>
+                  <div className="f-mono" style={{
+                    fontSize: "10px",
+                    letterSpacing: "0.1em",
+                    textTransform: "uppercase",
+                    color: "#475569",
+                    marginTop: "4px",
+                  }}>
+                    {stat.label}
+                  </div>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Right: quick-facts card */}
+          {/* Right column - Quick Facts card */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(129,140,248,0.03) 0%, rgba(0,212,255,0.01) 100%)",
-            border: "1px solid var(--border-subtle)", borderRadius: "var(--radius-lg)", padding: "28px",
+            background: "#0a0e18",
+            border: "1px solid rgba(255,255,255,0.08)",
+            borderRadius: "12px",
+            overflow: "hidden",
           }}>
-            <span className="f-mono" style={{
-              fontSize: "0.67rem", letterSpacing: "0.13em",
-              color: "var(--indigo)", textTransform: "uppercase",
-              display: "block", marginBottom: "18px", fontWeight: 600,
+            {/* Card header */}
+            <div style={{
+              padding: "1rem 1.5rem",
+              borderBottom: "1px solid rgba(255,255,255,0.06)",
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
             }}>
-              quick facts
-            </span>
-            {facts.map(({ label, value }) => (
-              <div key={label} className="qf-row">
-                <span className="f-mono" style={{ fontSize: "0.72rem", color: "var(--text-faint)" }}>{label}</span>
-                <span style={{ fontSize: "0.85rem", color: "var(--text-secondary)", fontWeight: 500 }}>{value}</span>
+              <div style={{
+                width: "6px",
+                height: "6px",
+                background: "#00d4ff",
+                borderRadius: "50%",
+              }} />
+              <span className="f-mono" style={{
+                fontSize: "11px",
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                color: "#00d4ff",
+                fontWeight: 600,
+              }}>
+                quick facts
+              </span>
+            </div>
+
+            {/* Fact rows */}
+            {facts.map(({ label, value }, idx) => (
+              <div key={label} style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                padding: "1rem 1.5rem",
+                borderBottom: idx < facts.length - 1 ? "1px solid rgba(255,255,255,0.04)" : "none",
+              }}>
+                <span className="f-mono" style={{
+                  fontSize: "12px",
+                  color: "#475569",
+                  letterSpacing: "0.04em",
+                }}>
+                  {label}
+                </span>
+                {label === "Training" ? (
+                  <span style={{
+                    fontSize: "13px",
+                    color: "#00d4ff",
+                    fontWeight: 500,
+                  }}>
+                    {value}
+                  </span>
+                ) : label === "Looking for" ? (
+                  <span className="f-mono" style={{
+                    fontSize: "11px",
+                    padding: "3px 10px",
+                    background: "rgba(0,212,255,0.08)",
+                    border: "1px solid rgba(0,212,255,0.2)",
+                    borderRadius: "999px",
+                    color: "#67e8f9",
+                  }}>
+                    {value}
+                  </span>
+                ) : (
+                  <span style={{
+                    fontSize: "13px",
+                    color: "#f1f5f9",
+                    fontWeight: 500,
+                    textAlign: "right",
+                  }}>
+                    {value}
+                  </span>
+                )}
               </div>
             ))}
+
+            {/* Availability bar */}
+            <div style={{
+              background: "#0a0e18",
+              borderTop: "1px solid rgba(255,255,255,0.06)",
+              padding: "1rem 1.5rem",
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+            }}>
+              <div style={{
+                width: "8px",
+                height: "8px",
+                background: "#22c55e",
+                borderRadius: "50%",
+                animation: "pulse 2.2s ease-in-out infinite",
+              }} />
+              <span style={{
+                fontSize: "12px",
+                color: "#94a3b8",
+              }}>
+                <span style={{ color: "#f1f5f9", fontWeight: 500 }}>Available now</span> — open to opportunities
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -1408,95 +1616,559 @@ function Contact() {
   const [sent, setSent] = useState(false);
 
   return (
-    <section id="contact" className="section-alt">
-      <div style={{ maxWidth: "560px", margin: "0 auto" }}>
-        <SectionHeader tag="05. contact" title="Say hello" centered />
+    <section id="contact" className="section" style={{ position: "relative", overflow: "hidden" }}>
+      {/* Dot grid background */}
+      <div aria-hidden="true" style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundImage: `
+          linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px)
+        `,
+        backgroundSize: "52px 52px",
+        pointerEvents: "none",
+      }} />
 
-        {/* WHY: "Compare notes on Python and databases" is a friendly, specific
-            invite — makes a recruiter or developer feel welcome, not just processed. */}
-        <p style={{
-          textAlign: "center", color: "var(--text-muted)",
-          fontSize: "0.92rem", lineHeight: 1.78,
-          marginTop: "18px", marginBottom: "40px",
-        }}>
-          I'm looking for backend roles where I can write reliable systems and grow with the team. Reach out if you have something interesting, want to talk backend architecture, or just connect.
-        </p>
+      {/* Cyan glow orb top-left */}
+      <div aria-hidden="true" style={{
+        position: "absolute",
+        top: "-100px",
+        left: "-100px",
+        width: "450px",
+        height: "450px",
+        background: "radial-gradient(circle, rgba(0,212,255,0.06) 0%, transparent 65%)",
+        borderRadius: "50%",
+        pointerEvents: "none",
+      }} />
 
-        {sent ? (
-          <div style={{
-            textAlign: "center", padding: "48px",
-            background: "var(--cyan-glow)", border: "1px solid var(--cyan-border)",
-            borderRadius: "var(--radius-lg)",
+      {/* Indigo glow orb bottom-right */}
+      <div aria-hidden="true" style={{
+        position: "absolute",
+        bottom: "-80px",
+        right: "-80px",
+        width: "400px",
+        height: "400px",
+        background: "radial-gradient(circle, rgba(99,102,241,0.07) 0%, transparent 65%)",
+        borderRadius: "50%",
+        pointerEvents: "none",
+      }} />
+
+      <div className="section-inner" style={{ position: "relative", zIndex: 2 }}>
+        {/* Section Header - Centered */}
+        <div style={{ textAlign: "center", marginBottom: "3rem" }}>
+          <span className="f-mono" style={{
+            display: "block",
+            fontSize: "11px",
+            letterSpacing: "0.14em",
+            textTransform: "uppercase",
+            color: "#475569",
+            marginBottom: "1rem",
           }}>
-            <p className="f-syne" style={{ fontSize: "1.3rem", fontWeight: 700, color: "var(--cyan)" }}>
-              Got it — thanks.
-            </p>
-            <p style={{ color: "var(--text-muted)", marginTop: "8px", fontSize: "0.9rem" }}>
-              I'll get back to you within a day or two.
-            </p>
-          </div>
-        ) : (
-          <form
-            onSubmit={(e) => { e.preventDefault(); setSent(true); }}
-            style={{ display: "flex", flexDirection: "column", gap: "14px" }}
-          >
-            <div className="form-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px" }}>
-              <div>
-                <label className="form-label">Name</label>
-                <input className="form-input" type="text" placeholder="Your name" required />
-              </div>
-              <div>
-                <label className="form-label">Email</label>
-                <input className="form-input" type="email" placeholder="your@email.com" required />
-              </div>
-            </div>
-            <div>
-              <label className="form-label">Subject</label>
-              <input className="form-input" type="text" placeholder="What's this about?" required />
-            </div>
-            <div>
-              <label className="form-label">Message</label>
-              <textarea className="form-input" rows={5} placeholder="What's on your mind?" required style={{ resize: "vertical" }} />
-            </div>
-            <button type="submit" className="btn btn-primary" style={{ alignSelf: "flex-start" }}>
-              Send message
-            </button>
-          </form>
-        )}
+            05. contact
+          </span>
+          <h2 className="f-syne" style={{
+            fontSize: "42px",
+            fontWeight: 800,
+            letterSpacing: "-0.03em",
+            color: "#f1f5f9",
+            marginBottom: "1rem",
+          }}>
+            Say <span style={{ color: "#00d4ff" }}>hello</span>
+          </h2>
+          <div style={{
+            width: "36px",
+            height: "3px",
+            background: "linear-gradient(90deg, #00d4ff, #6366f1)",
+            borderRadius: "2px",
+            margin: "0 auto 1rem",
+          }} />
+          <p style={{
+            fontSize: "14px",
+            color: "#94a3b8",
+            lineHeight: 1.75,
+            maxWidth: "500px",
+            margin: "0 auto 3rem",
+          }}>
+            I'm looking for backend roles where I can write reliable systems and grow with the team. Reach out if you have something interesting, want to talk backend architecture, or just connect.
+          </p>
+        </div>
 
-        <div style={{ display: "flex", justifyContent: "center", gap: "20px", marginTop: "52px" }}>
-          {[
-            { label: "GitHub", url: "https://github.com/mukoe2020", svg: '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>' },
-            { label: "LinkedIn", url: "https://www.linkedin.com/in/memory-mukonda-39ba06248/", svg: '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/></svg>' },
-            { label: "Email", url: "mailto:memoemukoe@gmail.com", svg: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>' },
-          ].map(({ label, url, svg }) => {
-            const [hovered, setHovered] = useState(false);
-            return (
-              <a
-                key={label}
-                href={url}
-                target={label !== "Email" ? "_blank" : undefined}
-                rel="noopener noreferrer"
-                style={{
-                  display: "inline-flex", alignItems: "center", justifyContent: "center",
-                  width: "42px", height: "42px",
-                  border: "1.5px solid var(--cyan)",
+        {/* Two-column layout */}
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1.6fr",
+          gap: "3rem",
+          alignItems: "start",
+        }}>
+          {/* Left column - Contact info & social */}
+          <div>
+            {/* Contact details card */}
+            <div style={{
+              background: "#0a0e18",
+              border: "1px solid rgba(255,255,255,0.08)",
+              borderRadius: "12px",
+              padding: "1.75rem",
+              marginBottom: "1rem",
+            }}>
+              <span className="f-mono" style={{
+                display: "block",
+                fontSize: "10px",
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: "#475569",
+                marginBottom: "1.25rem",
+                fontWeight: 600,
+              }}>
+                get in touch
+              </span>
+
+              {/* Email row */}
+              <div style={{
+                display: "flex",
+                gap: "12px",
+                padding: "0.75rem 0",
+                borderBottom: "1px solid rgba(255,255,255,0.04)",
+              }}>
+                <div style={{
+                  width: "34px",
+                  height: "34px",
                   borderRadius: "8px",
-                  background: hovered ? "rgba(0, 212, 255, 0.08)" : "transparent",
-                  color: "var(--cyan)",
-                  cursor: "pointer",
-                  transition: "all 0.3s ease",
-                  transform: hovered ? "translateY(-3px)" : "translateY(0)",
-                  boxShadow: hovered ? "0 8px 16px rgba(0, 212, 255, 0.15)" : "none",
-                }}
-                onMouseEnter={() => setHovered(true)}
-                onMouseLeave={() => setHovered(false)}
-                title={label}
+                  background: "rgba(0,212,255,0.1)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flexShrink: 0,
+                }}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00d4ff" strokeWidth="2">
+                    <rect x="2" y="4" width="20" height="16" rx="2" />
+                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                  </svg>
+                </div>
+                <div>
+                  <div className="f-mono" style={{
+                    fontSize: "10px",
+                    letterSpacing: "0.06em",
+                    textTransform: "uppercase",
+                    color: "#475569",
+                    marginBottom: "2px",
+                  }}>
+                    Email
+                  </div>
+                  <div style={{
+                    fontSize: "13px",
+                    color: "#f1f5f9",
+                    fontWeight: 500,
+                  }}>
+                    memorymukoe@gmail.com
+                  </div>
+                </div>
+              </div>
+
+              {/* Location row */}
+              <div style={{
+                display: "flex",
+                gap: "12px",
+                padding: "0.75rem 0",
+                borderBottom: "1px solid rgba(255,255,255,0.04)",
+              }}>
+                <div style={{
+                  width: "34px",
+                  height: "34px",
+                  borderRadius: "8px",
+                  background: "rgba(99,102,241,0.12)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flexShrink: 0,
+                }}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#818cf8" strokeWidth="2">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                    <circle cx="12" cy="10" r="3" />
+                  </svg>
+                </div>
+                <div>
+                  <div className="f-mono" style={{
+                    fontSize: "10px",
+                    letterSpacing: "0.06em",
+                    textTransform: "uppercase",
+                    color: "#475569",
+                    marginBottom: "2px",
+                  }}>
+                    Location
+                  </div>
+                  <div style={{
+                    fontSize: "13px",
+                    color: "#f1f5f9",
+                    fontWeight: 500,
+                  }}>
+                    Remote-friendly
+                  </div>
+                </div>
+              </div>
+
+              {/* Clock row */}
+              <div style={{
+                display: "flex",
+                gap: "12px",
+                padding: "0.75rem 0",
+              }}>
+                <div style={{
+                  width: "34px",
+                  height: "34px",
+                  borderRadius: "8px",
+                  background: "rgba(0,212,255,0.1)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flexShrink: 0,
+                }}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00d4ff" strokeWidth="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="12 6 12 12 16 14" />
+                  </svg>
+                </div>
+                <div>
+                  <div className="f-mono" style={{
+                    fontSize: "10px",
+                    letterSpacing: "0.06em",
+                    textTransform: "uppercase",
+                    color: "#475569",
+                    marginBottom: "2px",
+                  }}>
+                    Response
+                  </div>
+                  <div style={{
+                    fontSize: "13px",
+                    color: "#f1f5f9",
+                    fontWeight: 500,
+                  }}>
+                    Within 24 hours
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Social links card */}
+            <div style={{
+              background: "#0a0e18",
+              border: "1px solid rgba(255,255,255,0.08)",
+              borderRadius: "12px",
+              padding: "1.5rem 1.75rem",
+            }}>
+              <span className="f-mono" style={{
+                display: "block",
+                fontSize: "10px",
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: "#475569",
+                marginBottom: "1.25rem",
+                fontWeight: 600,
+              }}>
+                find me online
+              </span>
+
+              <div style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: "8px",
+              }}>
+                {[
+                  { name: "GitHub", handle: "@mukoe2020", url: "https://github.com/mukoe2020", svg: '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>' },
+                  { name: "LinkedIn", handle: "Memory Mukonda", url: "https://www.linkedin.com/in/memory-mukonda-39ba06248/", svg: '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/></svg>' },
+                ].map(({ name, handle, url, svg }) => (
+                  <a
+                    key={name}
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: "flex",
+                      gap: "8px",
+                      padding: "0.65rem 1rem",
+                      borderRadius: "8px",
+                      border: "1px solid rgba(255,255,255,0.08)",
+                      background: "#0f1724",
+                      cursor: "pointer",
+                      textDecoration: "none",
+                      transition: "all 0.2s ease",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = "rgba(0,212,255,0.3)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)";
+                    }}
+                  >
+                    <div style={{ color: "#00d4ff" }} dangerouslySetInnerHTML={{ __html: svg }} />
+                    <div style={{ display: "flex", flexDirection: "column", gap: "1px" }}>
+                      <div style={{
+                        fontSize: "12px",
+                        color: "#f1f5f9",
+                        fontWeight: 500,
+                      }}>
+                        {name}
+                      </div>
+                      <div className="f-mono" style={{
+                        fontSize: "10px",
+                        color: "#475569",
+                      }}>
+                        {handle}
+                      </div>
+                    </div>
+                  </a>
+                ))}
+              </div>
+
+              {/* Availability pill */}
+              <div style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                background: "rgba(34,197,94,0.08)",
+                border: "1px solid rgba(34,197,94,0.2)",
+                borderRadius: "999px",
+                padding: "8px 16px",
+                marginTop: "1rem",
+              }}>
+                <div style={{
+                  width: "7px",
+                  height: "7px",
+                  background: "#22c55e",
+                  borderRadius: "50%",
+                  animation: "pulse 2.2s ease-in-out infinite",
+                }} />
+                <span className="f-mono" style={{
+                  fontSize: "12px",
+                  color: "#86efac",
+                }}>
+                  Available for opportunities
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Right column - Contact form card */}
+          <div style={{
+            background: "#0a0e18",
+            border: "1px solid rgba(255,255,255,0.08)",
+            borderRadius: "12px",
+            padding: "2rem",
+          }}>
+            {sent ? (
+              <div style={{
+                textAlign: "center",
+                padding: "3rem",
+              }}>
+                <p className="f-syne" style={{
+                  fontSize: "1.3rem",
+                  fontWeight: 700,
+                  color: "#00d4ff",
+                  marginBottom: "8px",
+                }}>
+                  Got it — thanks.
+                </p>
+                <p style={{
+                  color: "#94a3b8",
+                  fontSize: "14px",
+                }}>
+                  I'll get back to you within a day or two.
+                </p>
+              </div>
+            ) : (
+              <form
+                onSubmit={(e) => { e.preventDefault(); setSent(true); }}
+                style={{ display: "flex", flexDirection: "column" }}
               >
-                <div dangerouslySetInnerHTML={{ __html: svg }} />
-              </a>
-            );
-          })}
+                {/* Name + Email row */}
+                <div style={{
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr",
+                  gap: "1rem",
+                  marginBottom: "1rem",
+                }}>
+                  <div>
+                    <label className="f-mono" style={{
+                      display: "block",
+                      fontSize: "10px",
+                      letterSpacing: "0.12em",
+                      textTransform: "uppercase",
+                      color: "#64748b",
+                      marginBottom: "6px",
+                      fontWeight: 600,
+                    }}>
+                      Name
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Your name"
+                      required
+                      style={{
+                        width: "100%",
+                        background: "#080c14",
+                        border: "1px solid rgba(255,255,255,0.08)",
+                        borderRadius: "8px",
+                        padding: "11px 14px",
+                        fontSize: "13px",
+                        color: "#f1f5f9",
+                        fontFamily: "inherit",
+                        outline: "none",
+                        transition: "border-color 0.2s",
+                      }}
+                      onFocus={(e) => e.target.style.borderColor = "rgba(0,212,255,0.4)"}
+                      onBlur={(e) => e.target.style.borderColor = "rgba(255,255,255,0.08)"}
+                    />
+                  </div>
+                  <div>
+                    <label className="f-mono" style={{
+                      display: "block",
+                      fontSize: "10px",
+                      letterSpacing: "0.12em",
+                      textTransform: "uppercase",
+                      color: "#64748b",
+                      marginBottom: "6px",
+                      fontWeight: 600,
+                    }}>
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      placeholder="your@email.com"
+                      required
+                      style={{
+                        width: "100%",
+                        background: "#080c14",
+                        border: "1px solid rgba(255,255,255,0.08)",
+                        borderRadius: "8px",
+                        padding: "11px 14px",
+                        fontSize: "13px",
+                        color: "#f1f5f9",
+                        fontFamily: "inherit",
+                        outline: "none",
+                        transition: "border-color 0.2s",
+                      }}
+                      onFocus={(e) => e.target.style.borderColor = "rgba(0,212,255,0.4)"}
+                      onBlur={(e) => e.target.style.borderColor = "rgba(255,255,255,0.08)"}
+                    />
+                  </div>
+                </div>
+
+                {/* Subject field */}
+                <div style={{ marginBottom: "1rem" }}>
+                  <label className="f-mono" style={{
+                    display: "block",
+                    fontSize: "10px",
+                    letterSpacing: "0.12em",
+                    textTransform: "uppercase",
+                    color: "#64748b",
+                    marginBottom: "6px",
+                    fontWeight: 600,
+                  }}>
+                    Subject
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="What's this about?"
+                    required
+                    style={{
+                      width: "100%",
+                      background: "#080c14",
+                      border: "1px solid rgba(255,255,255,0.08)",
+                      borderRadius: "8px",
+                      padding: "11px 14px",
+                      fontSize: "13px",
+                      color: "#f1f5f9",
+                      fontFamily: "inherit",
+                      outline: "none",
+                      transition: "border-color 0.2s",
+                    }}
+                    onFocus={(e) => e.target.style.borderColor = "rgba(0,212,255,0.4)"}
+                    onBlur={(e) => e.target.style.borderColor = "rgba(255,255,255,0.08)"}
+                  />
+                </div>
+
+                {/* Message field */}
+                <div style={{ marginBottom: "1.5rem" }}>
+                  <label className="f-mono" style={{
+                    display: "block",
+                    fontSize: "10px",
+                    letterSpacing: "0.12em",
+                    textTransform: "uppercase",
+                    color: "#64748b",
+                    marginBottom: "6px",
+                    fontWeight: 600,
+                  }}>
+                    Message
+                  </label>
+                  <textarea
+                    placeholder="What's on your mind?"
+                    required
+                    style={{
+                      width: "100%",
+                      minHeight: "120px",
+                      background: "#080c14",
+                      border: "1px solid rgba(255,255,255,0.08)",
+                      borderRadius: "8px",
+                      padding: "11px 14px",
+                      fontSize: "13px",
+                      color: "#f1f5f9",
+                      fontFamily: "inherit",
+                      lineHeight: 1.6,
+                      outline: "none",
+                      resize: "vertical",
+                      transition: "border-color 0.2s",
+                    }}
+                    onFocus={(e) => e.target.style.borderColor = "rgba(0,212,255,0.4)"}
+                    onBlur={(e) => e.target.style.borderColor = "rgba(255,255,255,0.08)"}
+                  />
+                </div>
+
+                {/* Submit row */}
+                <div style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  marginTop: "1.5rem",
+                  paddingTop: "1.5rem",
+                  borderTop: "1px solid rgba(255,255,255,0.06)",
+                }}>
+                  <span className="f-mono" style={{
+                    fontSize: "12px",
+                    color: "#475569",
+                  }}>
+                    I'll get back to you within 24hrs
+                  </span>
+                  <button
+                    type="submit"
+                    style={{
+                      background: "#00d4ff",
+                      color: "#080c14",
+                      padding: "12px 28px",
+                      borderRadius: "8px",
+                      border: "none",
+                      fontSize: "14px",
+                      fontWeight: 700,
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "8px",
+                      transition: "all 0.2s ease",
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = "#33dbff"}
+                    onMouseLeave={(e) => e.currentTarget.style.background = "#00d4ff"}
+                  >
+                    Send message
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <line x1="22" y1="2" x2="11" y2="13" />
+                      <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                    </svg>
+                  </button>
+                </div>
+              </form>
+            )}
+          </div>
         </div>
       </div>
     </section>
